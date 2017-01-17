@@ -21,23 +21,17 @@ public class PhotonReceiver : MonoBehaviour {
     {
         foreach (ContactPoint contact in collision.contacts)
         {
-            if (IsValidCollision(contact))
+            var photon = contact.otherCollider.GetComponent<Photon>();
+            if (photon != null && IsValidWavelength(photon.Wavelength))
             {
                 Received++;
-                Debug.Log("Received correct photon!");
+                photon.Kill();
             }
             else
             {
-                Debug.Log("Received invalid photon!");
+                Destroy(contact.otherCollider.gameObject);
             }
-            Destroy(contact.otherCollider.gameObject);
         }
-    }
-
-    private bool IsValidCollision(ContactPoint contact)
-    {
-        var photon = contact.otherCollider.GetComponent<Photon>();
-        return (photon != null && IsValidWavelength(photon.Wavelength));
     }
 
     private bool IsValidWavelength(float wavelength)

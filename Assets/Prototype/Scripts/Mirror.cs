@@ -8,12 +8,13 @@ public class Mirror : MonoBehaviour {
     {
         foreach(var contact in collision.contacts)
         {
-            var velocity = contact.otherCollider.attachedRigidbody.velocity;
-            Debug.Log("Normal: " + contact.normal);
-            Debug.Log("Velocity: " + velocity);
-            var reflect = Vector3.Reflect(velocity, contact.normal);
-            Debug.Log("Velocity after: " + reflect);
-            contact.otherCollider.attachedRigidbody.velocity = reflect;
+            var photon = contact.otherCollider.gameObject.GetComponent<Photon>();
+            if (photon != null)
+            {
+                var velocity = photon.Velocity;
+                var reflect = Vector3.Reflect(velocity, contact.normal);
+                photon.Velocity = reflect;
+            }
         }
     }
 }

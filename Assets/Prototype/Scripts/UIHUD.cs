@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UICanvas : MonoBehaviour {
+public class UIHUD : MonoBehaviour {
 
     public GameManager GameManager;
     public Text PhotonCount;
@@ -11,8 +11,15 @@ public class UICanvas : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        GameManager.PropertyChanged += GameManager_PropertyChanged;
+
         UpdatePhotonCount();
 	}
+
+    private void GameManager_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == "PhotonCount") UpdatePhotonCount();
+    }
 
     private void UpdatePhotonCount()
     {

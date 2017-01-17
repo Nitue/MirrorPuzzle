@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class PhotonEmitter : MonoBehaviour {
     [Header("Auto emit")]
     public bool EnableAutoEmitter;
     public float Rate;
+
+    public delegate void PhotonEmittedEventHandler(PhotonEmittedEventArgs args);
+    public event PhotonEmittedEventHandler OnPhotonEmitted;
 
     private float autoEmitNextUpdate;
 
@@ -35,9 +39,22 @@ public class PhotonEmitter : MonoBehaviour {
 
     public void Emit()
     {
-        var photon = Instantiate(PhotonPrefab, transform.position, transform.rotation) as GameObject;
+        var photon_gameobject = Instantiate(PhotonPrefab, transform.position, transform.rotation) as GameObject;
         var direction = transform.right;
-        photon.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x, direction.y, direction.z) * ForceMagnitude);
+        var photon = photon_gameobject.GetComponent<Photon>();
+        photon.Velocity = new Vector3(direction.x, direction.y, direction.z) * ForceMagnitude;
         photon.GetComponent<Photon>().Wavelength = Wavelength;
+
+        if (OnPhotonEmitted != null) OnPhotonEmitted(new PhotonEmittedEventArgs(photon));
+    }
+}
+
+public class PhotonEmittedEventArgs
+{
+    public Photon Photon;
+    
+    public PhotonEmittedEventArgs(Photon photon)
+    {
+        Photon = photon;
     }
 }

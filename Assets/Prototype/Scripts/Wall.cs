@@ -9,7 +9,9 @@ public class Wall : MonoBehaviour {
     {
         foreach (ContactPoint contact in collision.contacts)
         {
-            Destroy(contact.otherCollider.gameObject);
+            var photon = contact.otherCollider.gameObject.GetComponent<Photon>();
+            if (photon != null) photon.Kill();
+            else Destroy(contact.otherCollider.gameObject);
         }
     }
 }
