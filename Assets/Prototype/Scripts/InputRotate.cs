@@ -5,15 +5,25 @@ using UnityEngine;
 public class InputRotate : MonoBehaviour {
 
     public float RotationSpeed = 50f;
+    public float RotationStep = 1f;
     public bool LockAxisX;
     public bool LockAxisY;
+    public bool LockAxisZ;
     private bool rotateEnabled;
 	
 	// Update is called once per frame
 	void Update () {
         if (rotateEnabled)
         {
-            transform.Rotate(new Vector3((!LockAxisX) ? Input.GetAxis("Mouse Y") : 0f, (!LockAxisY) ? Input.GetAxis("Mouse X") : 0f, 0) * Time.deltaTime * RotationSpeed);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit))
+            {
+                float x = (!LockAxisX) ? hit.point.x : transform.position.x;
+                float y = (!LockAxisY) ? hit.point.y : transform.position.y;
+                float z = (!LockAxisZ) ? hit.point.z : transform.position.z;
+                transform.LookAt(new Vector3(x, y, z));
+            }
         }
     }
 

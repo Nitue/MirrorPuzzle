@@ -40,7 +40,7 @@ public class PhotonEmitter : MonoBehaviour {
     public void Emit()
     {
         var photon_gameobject = Instantiate(PhotonPrefab, transform.position, transform.rotation) as GameObject;
-        var direction = transform.right;
+        var direction = transform.forward;
         var photon = photon_gameobject.GetComponent<Photon>();
         photon.Velocity = new Vector3(direction.x, direction.y, direction.z) * ForceMagnitude;
         photon.GetComponent<Photon>().Wavelength = Wavelength;
