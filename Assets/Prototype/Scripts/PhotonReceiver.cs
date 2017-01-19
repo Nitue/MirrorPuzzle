@@ -38,4 +38,9 @@ public class PhotonReceiver : MonoBehaviour {
     {
         return (wavelength >= WavelengthMin && wavelength <= WavelengthMax);
     }
+
+    public void Reset()
+    {
+        Received = 0;
+    }
 }

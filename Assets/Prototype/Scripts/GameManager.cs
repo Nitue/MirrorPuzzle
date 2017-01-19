@@ -91,9 +91,17 @@ public class GameManager : MonoBehaviour, INotifyPropertyChanged {
         if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
     }
 
+    public void ResetReceivers()
+    {
+        foreach(var receiver in Receivers)
+        {
+            receiver.Reset();
+        }
+    }
+
     public void EmitPhotons()
     {
-        if(PhotonCount > 0)
+        if(PhotonCount > 0 && Photons.Count == 0)
         {
             foreach (var emitter in Emitters)
             {
