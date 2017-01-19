@@ -22,9 +22,9 @@ public class PhotonReceiver : MonoBehaviour {
         foreach (ContactPoint contact in collision.contacts)
         {
             var photon = contact.otherCollider.GetComponent<Photon>();
-            if (photon != null && IsValidWavelength(photon.Wavelength))
+            if (photon != null)
             {
-                Received++;
+                if(IsValidWavelength(photon.Wavelength)) Received++;
                 photon.Kill();
             }
             else

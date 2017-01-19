@@ -6,6 +6,7 @@ public class EmitterColor : MonoBehaviour
 
     public PhotonEmitter PhotonEmitter;
     public MeshRenderer MeshRenderer;
+    public Light Light;
 
     void Start()
     {
@@ -15,5 +16,6 @@ public class EmitterColor : MonoBehaviour
     public void SetColor(Color color)
     {
         MeshRenderer.material.color = color;
+        Light.color = color;
     }
 }

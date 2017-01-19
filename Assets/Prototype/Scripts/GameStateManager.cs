@@ -28,7 +28,10 @@ public class GameStateManager : MonoBehaviour {
 
     private void GameManager_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        TryEnding();
+        if (!TryEnding())
+        {
+            TrySetNewRound();
+        }
     }
 
     private bool TryEnding()
