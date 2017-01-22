@@ -9,6 +9,7 @@ public class InputRotate : MonoBehaviour {
     public bool LockAxisX;
     public bool LockAxisY;
     public bool LockAxisZ;
+    public float Step;
     private bool rotateEnabled;
 	
 	// Update is called once per frame
@@ -23,8 +24,15 @@ public class InputRotate : MonoBehaviour {
                 float y = (!LockAxisY) ? hit.point.y : transform.position.y;
                 float z = (!LockAxisZ) ? hit.point.z : transform.position.z;
                 transform.LookAt(new Vector3(x, y, z));
+                var rotation = transform.rotation.eulerAngles;
+                transform.rotation = Quaternion.Euler(ClosestNumber(rotation.x, Step), ClosestNumber(rotation.y, Step), ClosestNumber(rotation.z, Step));
             }
         }
+    }
+
+    private float ClosestNumber(float number, float interval)
+    {
+        return Mathf.Round(number / interval) * interval;
     }
 
     void OnMouseDown()

@@ -8,6 +8,16 @@ public class EmitterColor : MonoBehaviour
     public MeshRenderer MeshRenderer;
     public Light Light;
 
+    void Awake()
+    {
+        PhotonEmitter.PropertyChanged += PhotonEmitter_PropertyChanged;
+    }
+
+    private void PhotonEmitter_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == "Wavelength") SetColor(Util.GetColor(PhotonEmitter.Wavelength));
+    }
+
     void Start()
     {
         SetColor(Util.GetColor(PhotonEmitter.Wavelength));

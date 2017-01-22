@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour, INotifyPropertyChanged {
 
     public PhotonEmitter[] Emitters;
     public PhotonReceiver[] Receivers;
+    public Energy[] EnergyBatches;
 
     [SerializeField]
     private int photonCount;

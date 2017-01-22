@@ -2,12 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System.ComponentModel;
 
-public class PhotonEmitter : MonoBehaviour {
+public class PhotonEmitter : MonoBehaviour, INotifyPropertyChanged {
 
     public GameObject PhotonPrefab;
-    public float Wavelength;
+    public float BaseWavelength;
     public float ForceMagnitude;
+    public float MinWavelength = 400;
+    public float MaxWavelength = 600;
+
+    public ObservableList<Energy> EnergyBatches = new ObservableList<Energy>();
 
     [Header("Auto emit")]
     public bool EnableAutoEmitter;
@@ -15,11 +21,27 @@ public class PhotonEmitter : MonoBehaviour {
 
     public delegate void PhotonEmittedEventHandler(PhotonEmittedEventArgs args);
     public event PhotonEmittedEventHandler OnPhotonEmitted;
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public float Wavelength
+    {
+        get { return BaseWavelength + EnergyBatches.Select(x => x.WavelengthChange).Sum(); }
+    }
 
     private float autoEmitNextUpdate;
 
-	// Use this for initialization
-	void Start () {
+    void Awake()
+    {
+        EnergyBatches.OnAnyChange += EnergyBatches_OnAnyChange;
+    }
+
+    private void EnergyBatches_OnAnyChange(object sender, EventArgs e)
+    {
+        if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("Wavelength"));
+    }
+
+    // Use this for initialization
+    void Start () {
         SetAutoEmitNextUpdate();
     }
 	
