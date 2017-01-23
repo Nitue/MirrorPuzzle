@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,9 @@ public class PhotonReceiver : MonoBehaviour {
 
     public float Wavelength;
     public float WavelengthErrorMargin = 50f;
+
+    public event EventHandler OnReceiveValid;
+    public event EventHandler OnReceiveInvalid;
 
     public int Received { get; private set; }
     public float WavelengthMin
@@ -24,12 +28,21 @@ public class PhotonReceiver : MonoBehaviour {
             var photon = contact.otherCollider.GetComponent<Photon>();
             if (photon != null)
             {
-                if(IsValidWavelength(photon.Wavelength)) Received++;
+                if (IsValidWavelength(photon.Wavelength))
+                {
+                    Received++;
+                    if (OnReceiveValid != null) OnReceiveValid(this, new EventArgs());
+                }
+                else
+                {
+                    if (OnReceiveInvalid != null) OnReceiveInvalid(this, new EventArgs());
+                }
                 photon.Kill();
             }
             else
             {
                 Destroy(contact.otherCollider.gameObject);
+                if (OnReceiveInvalid != null) OnReceiveInvalid(this, new EventArgs());
             }
         }
     }
