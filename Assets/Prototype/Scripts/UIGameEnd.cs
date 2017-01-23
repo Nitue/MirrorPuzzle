@@ -30,4 +30,9 @@ public class UIGameEnd : MonoBehaviour {
     {
         StateManager.Reset();
     }
+
+    public void Next()
+    {
+        if(StateManager.HasNextLevel) StateManager.LoadNextLevel();
+    }
 }

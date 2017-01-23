@@ -3,14 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameStateManager : MonoBehaviour {
 
     public GameManager GameManager;
 
+    public LevelsData LevelsData;
+
     public event EventHandler OnGameWon;
     public event EventHandler OnGameLose;
     public event EventHandler OnNewRound;
+
+    public bool HasNextLevel
+    {
+        get { return (nextIndex <= lastIndex); }
+    }
+
+    public int CurrentIndex
+    {
+        get { return LevelsData.Levels.ToList().IndexOf(SceneManager.GetActiveScene().name); }
+    }
+    private int nextIndex
+    {
+        get { return CurrentIndex + 1; }
+    }
+    private int lastIndex
+    {
+        get { return LevelsData.Levels.Length - 1; }
+    }
 
     // Use this for initialization
     void Start () {
@@ -72,5 +93,13 @@ public class GameStateManager : MonoBehaviour {
     public void Reset()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void LoadNextLevel()
+    {
+        if (HasNextLevel)
+        {
+            SceneManager.LoadScene(LevelsData.Levels[nextIndex]);
+        }
     }
 }
