@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class DragLayer : MonoBehaviour {
+namespace Assets.Prototype.Scripts
+{
+    public class DragLayer : MonoBehaviour {
 
-    public static Transform Transform;
+        public static Transform Transform;
 
-	// Use this for initialization
-	void Awake () {
-        Transform = transform;
-	}
+        // Use this for initialization
+        void Awake () {
+            Transform = transform;
+        }
+    }
 }

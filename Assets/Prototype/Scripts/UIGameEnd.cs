@@ -1,38 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class UIGameEnd : MonoBehaviour {
+namespace Assets.Prototype.Scripts
+{
+    public class UIGameEnd : MonoBehaviour {
 
-    public GameStateManager StateManager;
-    public GameObject WinPanel;
-    public GameObject LosePanel;
+        public GameStateManager StateManager;
+        public GameObject WinPanel;
+        public GameObject LosePanel;
 
-    // Use this for initialization
-    void Start () {
-        StateManager.OnGameWon += StateManager_OnGameWon;
-        StateManager.OnGameLose += StateManager_OnGameLose;
-	}
+        // Use this for initialization
+        void Start () {
+            StateManager.OnGameWon += StateManager_OnGameWon;
+            StateManager.OnGameLose += StateManager_OnGameLose;
+        }
 
-    private void StateManager_OnGameLose(object sender, System.EventArgs e)
-    {
-        WinPanel.SetActive(false);
-        LosePanel.SetActive(true);
-    }
+        private void StateManager_OnGameLose(object sender, System.EventArgs e)
+        {
+            WinPanel.SetActive(false);
+            LosePanel.SetActive(true);
+        }
 
-    private void StateManager_OnGameWon(object sender, System.EventArgs e)
-    {
-        WinPanel.SetActive(true);
-        LosePanel.SetActive(false);
-    }
+        private void StateManager_OnGameWon(object sender, System.EventArgs e)
+        {
+            WinPanel.SetActive(true);
+            LosePanel.SetActive(false);
+        }
 
-    public void Replay()
-    {
-        StateManager.Reset();
-    }
+        public void Replay()
+        {
+            StateManager.Reset();
+        }
 
-    public void Next()
-    {
-        if(StateManager.HasNextLevel) StateManager.LoadNextLevel();
+        public void Next()
+        {
+            if(StateManager.HasNextLevel) StateManager.LoadNextLevel();
+        }
     }
 }

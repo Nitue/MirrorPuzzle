@@ -1,17 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Wall : MonoBehaviour {
+namespace Assets.Prototype.Scripts
+{
+    public class Wall : MonoBehaviour {
 
 
-	void OnCollisionEnter(Collision collision)
-    {
-        foreach (ContactPoint contact in collision.contacts)
+        void OnCollisionEnter(Collision collision)
         {
-            var photon = contact.otherCollider.gameObject.GetComponent<Photon>();
-            if (photon != null) photon.Kill();
-            else Destroy(contact.otherCollider.gameObject);
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                var photon = contact.otherCollider.gameObject.GetComponent<Photon>();
+                if (photon != null) photon.Kill();
+                else Destroy(contact.otherCollider.gameObject);
+            }
         }
     }
 }

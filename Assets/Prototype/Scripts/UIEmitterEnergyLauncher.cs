@@ -1,20 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[ExecuteInEditMode]
-public class UIEmitterEnergyLauncher : MonoBehaviour {
+namespace Assets.Prototype.Scripts
+{
+    [ExecuteInEditMode]
+    public class UIEmitterEnergyLauncher : MonoBehaviour {
 
-    public PhotonEmitter Emitter;
-    public UIEmitterEnergy UIEmitterEnergy;
+        public PhotonEmitter Emitter;
+        public UIEmitterEnergy UIEmitterEnergy;
 
-    void Start()
-    {
-        UIEmitterEnergy = FindObjectOfType<UIEmitterEnergy>();
-    }
+        void Start()
+        {
+            UIEmitterEnergy = FindObjectOfType<UIEmitterEnergy>();
+        }
 
-	void OnMouseUpAsButton()
-    {
-        UIEmitterEnergy.Open(Emitter);
+        void OnMouseUpAsButton()
+        {
+            UIEmitterEnergy.Open(Emitter);
+        }
     }
 }

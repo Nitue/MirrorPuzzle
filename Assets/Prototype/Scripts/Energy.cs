@@ -1,19 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Energy : MonoBehaviour {
+namespace Assets.Prototype.Scripts
+{
+    public class Energy : MonoBehaviour {
 
-    public string Name;
-    public float WavelengthChange;
+        public string Name;
+        public float WavelengthChange;
 
-	// Use this for initialization
-	void Start () {
+        // Use this for initialization
+        void Start () {
 		
-	}
+        }
 	
-	// Update is called once per frame
-	void Update () {
+        // Update is called once per frame
+        void Update () {
 		
-	}
+        }
+    }
 }

@@ -1,59 +1,60 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PhotonReceiver : MonoBehaviour {
+namespace Assets.Prototype.Scripts
+{
+    public class PhotonReceiver : MonoBehaviour {
 
-    public float Wavelength;
-    public float WavelengthErrorMargin = 50f;
+        public float Wavelength;
+        public float WavelengthErrorMargin = 50f;
 
-    public event EventHandler OnReceiveValid;
-    public event EventHandler OnReceiveInvalid;
+        public event EventHandler OnReceiveValid;
+        public event EventHandler OnReceiveInvalid;
 
-    public int Received { get; private set; }
-    public float WavelengthMin
-    {
-        get { return Wavelength - WavelengthErrorMargin; }
-    }
-    public float WavelengthMax
-    {
-        get { return Wavelength + WavelengthErrorMargin; }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        foreach (ContactPoint contact in collision.contacts)
+        public int Received { get; private set; }
+        public float WavelengthMin
         {
-            var photon = contact.otherCollider.GetComponent<Photon>();
-            if (photon != null)
+            get { return Wavelength - WavelengthErrorMargin; }
+        }
+        public float WavelengthMax
+        {
+            get { return Wavelength + WavelengthErrorMargin; }
+        }
+
+        void OnCollisionEnter(Collision collision)
+        {
+            foreach (ContactPoint contact in collision.contacts)
             {
-                if (IsValidWavelength(photon.Wavelength))
+                var photon = contact.otherCollider.GetComponent<Photon>();
+                if (photon != null)
                 {
-                    Received++;
-                    if (OnReceiveValid != null) OnReceiveValid(this, new EventArgs());
+                    if (IsValidWavelength(photon.Wavelength))
+                    {
+                        Received++;
+                        if (OnReceiveValid != null) OnReceiveValid(this, new EventArgs());
+                    }
+                    else
+                    {
+                        if (OnReceiveInvalid != null) OnReceiveInvalid(this, new EventArgs());
+                    }
+                    photon.Kill();
                 }
                 else
                 {
+                    Destroy(contact.otherCollider.gameObject);
                     if (OnReceiveInvalid != null) OnReceiveInvalid(this, new EventArgs());
                 }
-                photon.Kill();
-            }
-            else
-            {
-                Destroy(contact.otherCollider.gameObject);
-                if (OnReceiveInvalid != null) OnReceiveInvalid(this, new EventArgs());
             }
         }
-    }
 
-    private bool IsValidWavelength(float wavelength)
-    {
-        return (wavelength >= WavelengthMin && wavelength <= WavelengthMax);
-    }
+        private bool IsValidWavelength(float wavelength)
+        {
+            return (wavelength >= WavelengthMin && wavelength <= WavelengthMax);
+        }
 
-    public void Reset()
-    {
-        Received = 0;
+        public void Reset()
+        {
+            Received = 0;
+        }
     }
 }

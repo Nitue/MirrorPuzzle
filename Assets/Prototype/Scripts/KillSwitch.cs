@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class KillSwitch : MonoBehaviour
+namespace Assets.Prototype.Scripts
 {
-    public Photon Photon;
-    public float Duration = 1f;
-
-    private float timer;
-
-    void Start()
+    public class KillSwitch : MonoBehaviour
     {
+        public Photon Photon;
+        public float Duration = 1f;
 
-    }
+        private float timer;
 
-    void Update()
-    {
-        if (Photon.Velocity.magnitude == 0) timer += Time.deltaTime;
-        if (timer >= Duration) Photon.Kill();
+        void Start()
+        {
+
+        }
+
+        void Update()
+        {
+            if (Photon.Velocity.magnitude == 0) timer += Time.deltaTime;
+            if (timer >= Duration) Photon.Kill();
+        }
     }
 }

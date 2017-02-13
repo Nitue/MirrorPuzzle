@@ -1,31 +1,33 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class EmitterColor : MonoBehaviour
+namespace Assets.Prototype.Scripts
 {
-
-    public PhotonEmitter PhotonEmitter;
-    public MeshRenderer MeshRenderer;
-    public Light Light;
-
-    void Awake()
+    public class EmitterColor : MonoBehaviour
     {
-        PhotonEmitter.PropertyChanged += PhotonEmitter_PropertyChanged;
-    }
 
-    private void PhotonEmitter_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == "Wavelength") SetColor(Util.GetColor(PhotonEmitter.Wavelength));
-    }
+        public PhotonEmitter PhotonEmitter;
+        public MeshRenderer MeshRenderer;
+        public Light Light;
 
-    void Start()
-    {
-        SetColor(Util.GetColor(PhotonEmitter.Wavelength));
-    }
+        void Awake()
+        {
+            PhotonEmitter.PropertyChanged += PhotonEmitter_PropertyChanged;
+        }
 
-    public void SetColor(Color color)
-    {
-        MeshRenderer.material.color = color;
-        Light.color = color;
+        private void PhotonEmitter_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Wavelength") SetColor(Util.GetColor(PhotonEmitter.Wavelength));
+        }
+
+        void Start()
+        {
+            SetColor(Util.GetColor(PhotonEmitter.Wavelength));
+        }
+
+        public void SetColor(Color color)
+        {
+            MeshRenderer.material.color = color;
+            Light.color = color;
+        }
     }
 }

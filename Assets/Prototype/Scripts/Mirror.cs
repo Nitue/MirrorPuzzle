@@ -1,19 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Mirror : MonoBehaviour {
+namespace Assets.Prototype.Scripts
+{
+    public class Mirror : MonoBehaviour {
 
-    void OnCollisionEnter(Collision collision)
-    {
-        foreach(var contact in collision.contacts)
+        void OnCollisionEnter(Collision collision)
         {
-            var photon = contact.otherCollider.gameObject.GetComponent<Photon>();
-            if (photon != null)
+            foreach(var contact in collision.contacts)
             {
-                var velocity = photon.Velocity;
-                var reflect = Vector3.Reflect(velocity, contact.normal);
-                photon.Velocity = reflect;
+                var photon = contact.otherCollider.gameObject.GetComponent<Photon>();
+                if (photon != null)
+                {
+                    var velocity = photon.Velocity;
+                    var reflect = Vector3.Reflect(velocity, contact.normal);
+                    photon.Velocity = reflect;
+                }
             }
         }
     }

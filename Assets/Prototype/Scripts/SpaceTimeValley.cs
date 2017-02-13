@@ -1,38 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceTimeValley : MonoBehaviour {
+namespace Assets.Prototype.Scripts
+{
+    public class SpaceTimeValley : MonoBehaviour {
 
-    public float WavelengthChange;
-    public float Magnitude;
+        public float WavelengthChange;
+        public float Magnitude;
 
-    private List<Photon> photons = new List<Photon>();
+        private List<Photon> photons = new List<Photon>();
 
-    void OnTriggerEnter(Collider collider)
-    {
-        var photon = collider.gameObject.GetComponent<Photon>();
-        if (photon != null)
+        void OnTriggerEnter(Collider collider)
         {
-            photon.Wavelength += WavelengthChange;
-            photons.Add(photon);
+            var photon = collider.gameObject.GetComponent<Photon>();
+            if (photon != null)
+            {
+                photon.Wavelength += WavelengthChange;
+                photons.Add(photon);
+            }
         }
-    }
 
-    void OnTriggerExit(Collider collider)
-    {
-        var photon = collider.gameObject.GetComponent<Photon>();
-        if (photon != null)
+        void OnTriggerExit(Collider collider)
         {
-            photons.Remove(photon);
+            var photon = collider.gameObject.GetComponent<Photon>();
+            if (photon != null)
+            {
+                photons.Remove(photon);
+            }
         }
-    }
 
-    void FixedUpdate()
-    {
-        foreach(var photon in photons)
+        void FixedUpdate()
         {
-            photon.Velocity += (transform.position - photon.transform.position).normalized * Magnitude;
+            foreach(var photon in photons)
+            {
+                photon.Velocity += (transform.position - photon.transform.position).normalized * Magnitude;
+            }
         }
     }
 }
