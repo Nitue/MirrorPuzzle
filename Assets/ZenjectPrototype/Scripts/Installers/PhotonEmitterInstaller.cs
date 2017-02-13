@@ -9,15 +9,21 @@ namespace ZenjectPrototype.Installers
 {
     public class PhotonEmitterInstaller : MonoInstaller<PhotonEmitterInstaller>
     {
+        [SerializeField]
+        private Settings settings;
+
         public override void InstallBindings()
         {
-            Container.Bind<IRotatable>().To<Rotator>().AsSingle().WhenInjectedInto<PhotonEmitter>();
+            Container.BindInstance(settings.Transform).WhenInjectedInto<Rotator>();
+            Container.BindInstance(settings.RotateStep).WhenInjectedInto<Rotator>();
+            Container.Bind<IRotatable>().To<Rotator>().WhenInjectedInto<PhotonEmitter>();
         }
 
         [Serializable]
         public class Settings
         {
-            
+            public Transform Transform;
+            public float RotateStep;
         }
     }
 }

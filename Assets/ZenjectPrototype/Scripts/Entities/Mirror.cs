@@ -7,12 +7,14 @@ namespace ZenjectPrototype.Entities
 {
     public class Mirror : Entity
     {
-        protected void OnCollisionEnter(Collision collision)
+        public void OnCollisionEnter(Collision collision)
         {
-            var movable = collision.collider.gameObject.GetComponent<IMovable>();
-            if (movable != null)
+            Debug.Log("Colliding!");
+            var rotatable = collision.collider.gameObject.GetComponent<IRotatable>();
+            if (rotatable != null)
             {
-                //movable.Move(); // reflect the velocity
+                var reflect = Vector3.Reflect(rotatable.Rotation, collision.contacts[0].normal);
+                rotatable.Rotate(reflect);
             }
         }
     }

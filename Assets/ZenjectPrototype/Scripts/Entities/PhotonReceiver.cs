@@ -36,5 +36,10 @@ namespace ZenjectPrototype.Entities
             Count++;
             if (OnCountUp != null) OnCountUp(this, new CountUpEventArgs());
         }
+
+        public void Reset()
+        {
+            Count = 0;
+        }
     }
 }

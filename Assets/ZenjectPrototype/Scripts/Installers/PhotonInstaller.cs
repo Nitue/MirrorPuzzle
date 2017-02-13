@@ -13,15 +13,18 @@ namespace ZenjectPrototype.Installers
 
         public override void InstallBindings()
         {
+            Container.BindInstance(settings.Transform).WhenInjectedInto<Rotator>();
+            Container.BindInstance(settings.RotateStep).WhenInjectedInto<Rotator>();
             Container.BindInstance(settings.Transform).WhenInjectedInto<LinearMovement>();
             Container.Bind<IMovable>().To<LinearMovement>().WhenInjectedInto<Photon>();
+            Container.Bind<IRotatable>().To<Rotator>().WhenInjectedInto<Photon>();
         }
 
         [Serializable]
         public class Settings
         {
             public Transform Transform;
-
+            public float RotateStep;
         }
     }
 }

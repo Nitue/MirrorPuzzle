@@ -13,6 +13,18 @@ namespace ZenjectPrototype.Entities
         private IRotatable rotatable;
         private ISpawner<Photon> spawner;
 
+        public Vector3 Rotation
+        {
+            get
+            {
+                return rotatable.Rotation;
+            }
+            set
+            {
+                rotatable.Rotation = value;
+            }
+        }
+
         [Inject]
         public void Construct(IRotatable rotatable, ISpawner<Photon> spawner)
         {
@@ -23,7 +35,8 @@ namespace ZenjectPrototype.Entities
         public void Emit()
         {
             var photon = spawner.Spawn(transform.position);
-            photon.Speed = 10f;
+            photon.Speed = 5f;
+            photon.Rotation = Rotation;
         }
 
         public void Rotate(Vector3 amount)

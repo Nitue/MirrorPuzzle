@@ -10,5 +10,6 @@ namespace ZenjectPrototype.Entities.Capabilities
     {
         int Count { get; }
         event CountUpEventHandler OnCountUp;
+        void Reset();
     }
 }

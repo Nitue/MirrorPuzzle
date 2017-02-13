@@ -4,7 +4,7 @@ namespace Assets.Prototype.Scripts
 {
     public class Mirror : MonoBehaviour {
 
-        void OnCollisionEnter(Collision collision)
+        protected void OnCollisionEnter(Collision collision)
         {
             foreach(var contact in collision.contacts)
             {
