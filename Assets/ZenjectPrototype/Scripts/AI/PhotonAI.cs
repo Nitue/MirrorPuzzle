@@ -11,9 +11,8 @@ namespace ZenjectPrototype.AI
 
         protected override void Update()
         {
-            // Photon doesn't do anything else but move forward
-            // and doesn't care what happens on the way
-            photon.Move(photon.transform.forward);
+            // Photon doesn't do anything else but move
+            photon.Move();
         }
     }
 }

@@ -4,26 +4,20 @@ using Zenject;
 using ZenjectPrototype.Entities;
 using ZenjectPrototype.Entities.Capabilities;
 using ZenjectPrototype.Entities.Spawners;
+using ZenjectPrototype.UI;
 
 namespace ZenjectPrototype.Installers
 {
     public class PhotonEmitterInstaller : MonoInstaller<PhotonEmitterInstaller>
     {
-        [SerializeField]
-        private Settings settings;
+        public PhotonEmitter PhotonEmitter;
+        public Rotator.Settings RotatorSettings;
 
         public override void InstallBindings()
         {
-            Container.BindInstance(settings.Transform).WhenInjectedInto<Rotator>();
-            Container.BindInstance(settings.RotateStep).WhenInjectedInto<Rotator>();
+            Container.BindInstance(RotatorSettings).WhenInjectedInto<Rotator>();
+            Container.Bind<IRotatable>().FromInstance(PhotonEmitter).WhenInjectedInto<MouseRotate>();
             Container.Bind<IRotatable>().To<Rotator>().WhenInjectedInto<PhotonEmitter>();
-        }
-
-        [Serializable]
-        public class Settings
-        {
-            public Transform Transform;
-            public float RotateStep;
         }
     }
 }

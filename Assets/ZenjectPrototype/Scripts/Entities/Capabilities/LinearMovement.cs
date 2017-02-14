@@ -9,7 +9,7 @@ namespace ZenjectPrototype.Entities.Capabilities
 {
     public class LinearMovement : IMovable
     {
-        public float Speed { get; set; }
+        public Vector3 Velocity { get; set; }
 
         private Transform transform;
 
@@ -19,9 +19,9 @@ namespace ZenjectPrototype.Entities.Capabilities
             this.transform = transform;
         }
 
-        public void Move(Vector3 direction)
+        public void Move()
         {
-            transform.position += Speed * direction.normalized * Time.deltaTime;
+            transform.position += Velocity * Time.deltaTime;
         }
     }
 }

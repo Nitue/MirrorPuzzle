@@ -29,19 +29,17 @@ namespace ZenjectPrototype.Managers
             {
                 data.OnDestroyed += Data_OnDestroyed;
                 entities.Add(data);
-                Debug.Log("There are now " + entities.Count + " entities.");
             }
         }
 
         private void Data_OnDestroyed(Entity sender)
         {
             entities.Remove(sender);
-            Debug.Log("There are now " + entities.Count + " entities.");
         }
 
         public Entity Get(Func<Entity, bool> predicate)
         {
-            return GetMany(predicate).First();
+            return GetAll(predicate).First();
         }
 
         public IEnumerable<Entity> GetAll()
@@ -49,7 +47,7 @@ namespace ZenjectPrototype.Managers
             return entities;
         }
 
-        public IEnumerable<Entity> GetMany(Func<Entity, bool> predicate)
+        public IEnumerable<Entity> GetAll(Func<Entity, bool> predicate)
         {
             return entities.Where(predicate);
         }

@@ -35,8 +35,13 @@ namespace ZenjectPrototype.Entities
         public void Emit()
         {
             var photon = spawner.Spawn(transform.position);
-            photon.Speed = 5f;
             photon.Rotation = Rotation;
+            photon.Velocity = photon.transform.forward * 5f;
+        }
+
+        public void LookAt(Vector3 position)
+        {
+            rotatable.LookAt(position);
         }
 
         public void Rotate(Vector3 amount)

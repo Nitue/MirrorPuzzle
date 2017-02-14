@@ -7,7 +7,7 @@ namespace ZenjectPrototype.Entities
 {
     public class Photon : Entity, IKillable, IMovable, IRotatable
     {
-        private IRotatable rotatable;
+        private IRotatable rotatable; // Changeable rotation logic
         private IMovable movement; // Changable movement logic
 
         public Vector3 Rotation
@@ -22,17 +22,10 @@ namespace ZenjectPrototype.Entities
             }
         }
 
-        public float Speed
+        public Vector3 Velocity
         {
-            get
-            {
-                return movement.Speed;
-            }
-
-            set
-            {
-                movement.Speed = value;
-            }
+            get { return movement.Velocity; }
+            set { movement.Velocity = value; }
         }
 
         [Inject]
@@ -47,14 +40,19 @@ namespace ZenjectPrototype.Entities
             Destroy(gameObject);
         }
 
-        public void Move(Vector3 direction)
+        public void Move()
         {
-            movement.Move(direction); // Method delegation
+            movement.Move(); // Method delegation
         }
 
         public void Rotate(Vector3 amount)
         {
-            rotatable.Rotate(amount);
+            rotatable.Rotate(amount); // Method delegation
+        }
+
+        public void LookAt(Vector3 position)
+        {
+            rotatable.LookAt(position); // Method delegation
         }
 
         public class Factory : Factory<Photon> { }

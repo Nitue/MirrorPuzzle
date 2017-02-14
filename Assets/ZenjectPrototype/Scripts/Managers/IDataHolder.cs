@@ -8,7 +8,7 @@ namespace ZenjectPrototype.Managers
     public interface IDataHolder<T>
     {
         T Get(Func<T, bool> predicate);
-        IEnumerable<T> GetMany(Func<T, bool> predicate);
+        IEnumerable<T> GetAll(Func<T, bool> predicate);
         IEnumerable<T> GetAll();
         void Add(T data);
     }

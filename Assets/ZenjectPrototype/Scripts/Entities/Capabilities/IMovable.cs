@@ -5,7 +5,7 @@ namespace ZenjectPrototype.Entities.Capabilities
 {
     public interface IMovable
     {
-        float Speed { get; set; }
-        void Move(Vector3 direction);
+        Vector3 Velocity { get; set; }
+        void Move();
     }
 }

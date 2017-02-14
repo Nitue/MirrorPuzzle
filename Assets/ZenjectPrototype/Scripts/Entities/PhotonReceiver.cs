@@ -16,7 +16,7 @@ namespace ZenjectPrototype.Entities
 
         private IFilter receiverTypes;
 
-        [Inject]
+        //[Inject]
         public void Construct(IFilter receiverTypes)
         {
             this.receiverTypes = receiverTypes;
