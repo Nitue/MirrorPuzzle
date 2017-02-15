@@ -13,6 +13,8 @@ namespace ZenjectPrototype.Managers
     {
         private readonly List<Entity> entities = new List<Entity>();
 
+        public event AddedEventHandler<Entity> OnAdded;
+
         public void AddSpawner(ISpawner<Entity> spawner)
         {
             spawner.OnSpawned += Spawner_OnSpawned;
@@ -29,6 +31,7 @@ namespace ZenjectPrototype.Managers
             {
                 data.OnDestroyed += Data_OnDestroyed;
                 entities.Add(data);
+                if(OnAdded != null) OnAdded.Invoke(this, new AddedEventArgs<Entity>(data));
             }
         }
 
