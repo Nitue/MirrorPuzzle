@@ -7,6 +7,6 @@ namespace ZenjectPrototype.Entities.Filters
 {
     public interface IFilter
     {
-        bool IsMatch(object target);
+        bool IsMatch(Entity target);
     }
 }

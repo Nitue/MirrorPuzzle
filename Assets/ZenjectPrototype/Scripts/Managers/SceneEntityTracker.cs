@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 using ZenjectPrototype.Entities;
 
@@ -10,12 +6,12 @@ namespace ZenjectPrototype.Managers
 {
     public class SceneEntityTracker
     {
-        private IDataHolder<Entity> entityHolder;
+        private IDataHolder<Entity> entities;
 
         [Inject]
         public SceneEntityTracker(IDataHolder<Entity> entityHolder)
         {
-            this.entityHolder = entityHolder;
+            this.entities = entityHolder;
         }
 
         public void Fetch()
@@ -32,7 +28,7 @@ namespace ZenjectPrototype.Managers
         {
             foreach(var entity in entities)
             {
-                entityHolder.Add(entity);
+                this.entities.Add(entity);
             }
         }
     }

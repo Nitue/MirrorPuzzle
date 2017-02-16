@@ -1,20 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 using ZenjectPrototype.Entities.Capabilities;
 
 namespace ZenjectPrototype.Entities
 {
-    public class Mirror : Entity
+    public class Mirror : Entity, IReflector
     {
-        public void OnCollisionEnter(Collision collision)
+        private IReflector reflector;
+
+        [Inject]
+        public void Construct(IReflector reflector)
         {
-            var movable = collision.collider.gameObject.GetComponent<IMovable>();
-            if (movable != null)
-            {
-                var reflectedVelocity = Vector3.Reflect(movable.Velocity, collision.contacts[0].normal);
-                movable.Velocity = reflectedVelocity;
-            }
+            this.reflector = reflector;
+        }
+
+        public void Reflect(IMovable movable, Vector3 normal)
+        {
+            reflector.Reflect(movable, normal);
         }
     }
 }

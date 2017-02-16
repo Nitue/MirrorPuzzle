@@ -8,30 +8,34 @@ using Zenject;
 
 namespace ZenjectPrototype.Entities
 {
-    public class PhotonReceiver : Entity, ICounter
+    public class PhotonReceiver : Entity, ICounter, IWave, ICollidable
     {
         public int Count { get; private set; }
 
+        public int Wavelength
+        {
+            get { return wave.Wavelength; }
+            set { wave.Wavelength = value; }
+        }
+
         public event CountUpEventHandler OnCountUp;
-
-        private IFilter receiverTypes;
-
-        //[Inject]
-        public void Construct(IFilter receiverTypes)
+        public event WavelengthChangeEventHandler OnWavelengthChanged
         {
-            this.receiverTypes = receiverTypes;
+            add { wave.OnWavelengthChanged += value; }
+            remove { wave.OnWavelengthChanged -= value; }
         }
 
-        protected void OnCollisionEnter(Collision collision)
+        private IWave wave;
+        private ICollidable collidable;
+
+        [Inject]
+        public void Construct(IWave wave, ICollidable collidable)
         {
-            var other = collision.collider.gameObject.GetComponent<Entity>();
-            if (receiverTypes.IsMatch(other))
-            {
-                CountUp();
-            }
+            this.wave = wave;
+            this.collidable = collidable;
         }
 
-        private void CountUp()
+        public void CountUp()
         {
             Count++;
             if (OnCountUp != null) OnCountUp(this, new CountUpEventArgs());
@@ -40,6 +44,11 @@ namespace ZenjectPrototype.Entities
         public void Reset()
         {
             Count = 0;
+        }
+
+        public bool IsCollision(Collision collision)
+        {
+            return collidable.IsCollision(collision);
         }
     }
 }
