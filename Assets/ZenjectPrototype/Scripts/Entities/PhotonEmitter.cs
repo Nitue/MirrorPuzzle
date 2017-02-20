@@ -5,14 +5,21 @@ using UnityEngine;
 using Zenject;
 using ZenjectPrototype.Entities.Capabilities;
 using ZenjectPrototype.Entities.Spawners;
+using ZenjectPrototype.Entities.Modifiers;
 
 namespace ZenjectPrototype.Entities
 {
-    public class PhotonEmitter : Entity, IRotatable, IEmitter, IWave
+    public class PhotonEmitter : Entity, IRotatable, IEmitter, IWave, IModifiable
     {
         private IRotatable rotatable;
         private ISpawner<Photon> spawner;
         private IWave wave;
+        private IModifiable modifiable;
+
+        public IEnumerable Modifiers
+        {
+            get { return modifiable.Modifiers; }
+        }
 
         public Vector3 Rotation
         {
@@ -39,11 +46,12 @@ namespace ZenjectPrototype.Entities
         }
 
         [Inject]
-        public void Construct(IRotatable rotatable, ISpawner<Photon> spawner, IWave wave)
+        public void Construct(IRotatable rotatable, ISpawner<Photon> spawner, IWave wave, IModifiable modifiable)
         {
             this.rotatable = rotatable;
             this.spawner = spawner;
             this.wave = wave;
+            this.modifiable = modifiable;
         }
 
         public void Emit()
@@ -57,6 +65,11 @@ namespace ZenjectPrototype.Entities
         public void LookAt(Vector3 position)
         {
             rotatable.LookAt(position);
+        }
+
+        public void Register(Modifier modifier)
+        {
+            modifiable.Register(modifier);
         }
 
         public void Rotate(Vector3 amount)

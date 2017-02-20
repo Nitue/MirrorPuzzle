@@ -4,6 +4,9 @@ using ZenjectPrototype.Entities;
 using ZenjectPrototype.Entities.Capabilities;
 using ZenjectPrototype.Entities.Spawners;
 using ZenjectPrototype.Managers;
+using ZenjectPrototype.Entities.Modifiers;
+using ZenjectPrototype.GameState;
+using ZenjectPrototype.UI;
 
 namespace ZenjectPrototype.Installers
 {
@@ -20,8 +23,13 @@ namespace ZenjectPrototype.Installers
             Container.BindAllInterfacesAndSelf<EntityManager>().To<EntityManager>().AsSingle().NonLazy();
             Container.BindAllInterfacesAndSelf<PhotonSpawner>().To<PhotonSpawner>().AsSingle().NonLazy();
 
+            Container.Bind<ICondition>().To<WinCondition>().AsSingle().WhenInjectedInto<WinPanel>();
+            Container.Bind<ICondition>().To<LoseCondition>().AsSingle().WhenInjectedInto<LosePanel>();
+
             // Each created Photon via the factory is created from a Prefab
             Container.BindFactory<Photon, Photon.Factory>().FromPrefab(PhotonPrefab);
+
+            Container.BindFactory<IWave, int, WavelengthModifier, WavelengthModifier.Factory>().FromNew();
         }
     }
 }

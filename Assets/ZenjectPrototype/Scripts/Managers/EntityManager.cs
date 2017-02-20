@@ -20,9 +20,9 @@ namespace ZenjectPrototype.Managers
             spawner.OnSpawned += Spawner_OnSpawned;
         }
 
-        private void Spawner_OnSpawned(object sender, Entity spawned)
+        private void Spawner_OnSpawned(object sender, SpawnedEventArgs e)
         {
-            Add(spawned);
+            Add(e.Spawned);
         }
 
         public void Add(Entity data)

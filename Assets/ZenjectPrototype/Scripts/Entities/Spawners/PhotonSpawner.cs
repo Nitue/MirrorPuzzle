@@ -9,7 +9,7 @@ namespace ZenjectPrototype.Entities.Spawners
 {
     public class PhotonSpawner : ISpawner<Photon>
     {
-        public event SpawnedEventHandler<Photon> OnSpawned;
+        public event SpawnedEventHandler OnSpawned;
 
         private Photon.Factory factory;
 
@@ -23,7 +23,7 @@ namespace ZenjectPrototype.Entities.Spawners
         {
             var spawned = factory.Create();
             spawned.transform.position = position;
-            if(OnSpawned != null) OnSpawned(this, spawned);
+            if(OnSpawned != null) OnSpawned(this, new SpawnedEventArgs(spawned));
             return spawned;
         }
     }
