@@ -29,7 +29,7 @@ namespace ZenjectPrototype.GameState
 
         private void RoundManager_OnRoundEnd(object sender, EventArgs e)
         {
-            if (!AreAllReceiversReady(entities.GetAll().OfType<PhotonReceiver>()) && roundManager.Rounds == 0)
+            if (!AreAllReceiversReady(entities.GetAll().OfType<PhotonReceiver>()) && roundManager.Rounds.Stock == 0)
             {
                 if (OnConditionMet != null) OnConditionMet(this, new EventArgs());
             }

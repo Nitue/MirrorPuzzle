@@ -13,6 +13,8 @@ namespace ZenjectPrototype.Installers
     public class GameInstaller : MonoInstaller<GameInstaller>
     {
         public GameObject PhotonPrefab;
+        public int EnergyStock;
+        public int ChargeStock;
 
         public override void InstallBindings()
         {
@@ -23,6 +25,9 @@ namespace ZenjectPrototype.Installers
             Container.BindAllInterfacesAndSelf<EntityManager>().To<EntityManager>().AsSingle().NonLazy();
             Container.BindAllInterfacesAndSelf<PhotonSpawner>().To<PhotonSpawner>().AsSingle().NonLazy();
 
+            Container.Bind<ResourceContainer>().To<ResourceContainer>().AsSingle();
+            Container.Bind<IResource<int>>().To<Resource>().WhenInjectedInto<ResourceContainer>();
+
             Container.Bind<ICondition>().To<WinCondition>().AsSingle().WhenInjectedInto<WinPanel>();
             Container.Bind<ICondition>().To<LoseCondition>().AsSingle().WhenInjectedInto<LosePanel>();
 
@@ -30,6 +35,8 @@ namespace ZenjectPrototype.Installers
             Container.BindFactory<Photon, Photon.Factory>().FromPrefab(PhotonPrefab);
 
             Container.BindFactory<IWave, int, WavelengthModifier, WavelengthModifier.Factory>().FromNew();
+
+            RoundInstaller.Install(Container);
         }
     }
 }

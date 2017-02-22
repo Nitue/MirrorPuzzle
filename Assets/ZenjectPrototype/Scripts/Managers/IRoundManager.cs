@@ -8,7 +8,7 @@ namespace ZenjectPrototype.Managers
     public interface IRoundManager
     {
         bool IsRoundGoing { get; }
-        int Rounds { get; }
+        IResource<int> Rounds { get; }
         void StartRound();
         event EventHandler OnRoundStart;
         event EventHandler OnRoundEnd;

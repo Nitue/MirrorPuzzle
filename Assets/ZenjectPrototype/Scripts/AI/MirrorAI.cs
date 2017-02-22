@@ -12,7 +12,10 @@ namespace ZenjectPrototype.AI
 
         protected override void Update()
         {
-            // Not actually needed... Think about solution for this. Empty methods are no good
+            // Not actually needed... Think about solution for this. Empty methods are no good.
+            // Possible solutions:
+            // - remove AI base class
+            // - instead of AI base class, use interfaces for different kind of AI behaviour
         }
 
         protected void OnCollisionEnter(Collision collision)

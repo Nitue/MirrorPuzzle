@@ -1,17 +1,21 @@
 using Zenject;
 using ZenjectPrototype.GameState;
+using ZenjectPrototype.Managers;
 
-public class RoundInstaller : MonoInstaller<RoundInstaller>
+namespace ZenjectPrototype.Installers
 {
-    public override void InstallBindings()
+    public class RoundInstaller : Installer<RoundInstaller>
     {
-        Container.BindAllInterfaces<LevelRoundManager>().To<LevelRoundManager>().AsSingle();
-        Container.BindAllInterfaces<EmitterTrigger>().To<EmitterTrigger>().AsSingle();
-        Container.BindAllInterfaces<EndCondition>().To<EndCondition>().AsSingle();
-        Container.BindAllInterfaces<WinCondition>().To<WinCondition>().AsSingle();
-        Container.BindAllInterfaces<LoseCondition>().To<LoseCondition>().AsSingle();
+        public override void InstallBindings()
+        {
+            Container.BindAllInterfaces<LevelRoundManager>().To<LevelRoundManager>().AsSingle();
+            Container.BindAllInterfaces<EmitterTrigger>().To<EmitterTrigger>().AsSingle();
+            Container.BindAllInterfaces<EndCondition>().To<EndCondition>().AsSingle();
+            Container.BindAllInterfaces<WinCondition>().To<WinCondition>().AsSingle();
+            Container.BindAllInterfaces<LoseCondition>().To<LoseCondition>().AsSingle();
 
-        Container.Bind<ICondition>().To<EndCondition>().AsSingle().WhenInjectedInto<LevelRoundManager>();
-        Container.BindInstance(2).WhenInjectedInto<LevelRoundManager>();
+            Container.Bind<ICondition>().To<EndCondition>().AsSingle().WhenInjectedInto<LevelRoundManager>();
+            Container.Bind<IResource<int>>().FromResolveGetter<ResourceContainer>(x => x.Charges).WhenInjectedInto<LevelRoundManager>();
+        }
     }
 }

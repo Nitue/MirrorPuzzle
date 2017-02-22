@@ -11,8 +11,6 @@ namespace ZenjectPrototype.GameState
     public class LevelRoundManager : IInitializable, IRoundManager
     {
         private ICondition endCondition;
-        private int roundsMax;
-        private int rounds;
         private bool isRoundGoing;
 
         public event EventHandler OnRoundStart;
@@ -23,17 +21,13 @@ namespace ZenjectPrototype.GameState
             get { return isRoundGoing; }
         }
 
-        public int Rounds
-        {
-            get { return rounds; }
-        }
+        public IResource<int> Rounds { get; private set; }
 
         [Inject]
-        public LevelRoundManager(ICondition endCondition, int rounds)
+        public LevelRoundManager(ICondition endCondition, IResource<int> rounds)
         {
             this.endCondition = endCondition;
-            this.roundsMax = rounds;
-            this.rounds = rounds;
+            this.Rounds = rounds;
         }
 
         public void Initialize()
@@ -43,9 +37,8 @@ namespace ZenjectPrototype.GameState
 
         public void StartRound()
         {
-            if(rounds > 0)
+            if(Rounds.Spend(1))
             {
-                rounds--;
                 isRoundGoing = true;
                 if (OnRoundStart != null) OnRoundStart(this, new EventArgs());
             }
@@ -53,7 +46,7 @@ namespace ZenjectPrototype.GameState
 
         public void ResetRounds()
         {
-            rounds = roundsMax;
+            Rounds.Restock(Rounds.StockCap);
         }
 
         private void EndCondition_OnConditionMet(object sender, EventArgs e)

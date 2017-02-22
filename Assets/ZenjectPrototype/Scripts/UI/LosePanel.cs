@@ -22,7 +22,6 @@ namespace ZenjectPrototype.UI
 
         protected void Awake()
         {
-            Debug.Log("Listening");
             condition.OnConditionMet += Condition_OnConditionMet;
         }
 
