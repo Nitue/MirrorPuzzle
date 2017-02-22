@@ -32,7 +32,7 @@ namespace ZenjectPrototype.Exchange
         {
             if(resource.Spend(amount))
             {
-                wave.Wavelength += amount;
+                wave.Wavelength -= amount;
                 return true;
             }
             return false;
@@ -41,7 +41,7 @@ namespace ZenjectPrototype.Exchange
         private bool From(int amount)
         {
             resource.Restock(amount);
-            wave.Wavelength -= amount;
+            wave.Wavelength += amount;
             return true;
         }
 
