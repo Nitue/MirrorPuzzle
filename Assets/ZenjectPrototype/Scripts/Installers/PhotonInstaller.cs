@@ -1,5 +1,3 @@
-using System;
-using UnityEngine;
 using Zenject;
 using ZenjectPrototype.Entities;
 using ZenjectPrototype.Entities.Capabilities;

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-using ZenjectPrototype.Entities.Modifiers;
 using ZenjectPrototype.Exchange;
 
 namespace ZenjectPrototype.UI
@@ -10,6 +9,8 @@ namespace ZenjectPrototype.UI
     {
         [SerializeField]
         private Slider slider;
+        [SerializeField]
+        private int step;
         private IExchangable exchangable;
 
         private float previousValue;
@@ -31,25 +32,29 @@ namespace ZenjectPrototype.UI
             this.exchangable = exchangable;
         }
 
-        protected void Awake()
+        protected void Start()
         {
             previousValue = slider.value;
         }
 
         public void ChangeValue()
         {
-            int change = Mathf.RoundToInt(slider.value - previousValue);
-            
-            if(change > 0)
+            float stepValue = ClosestStep(slider.value, step);
+            slider.value = stepValue;
+            int change = Mathf.RoundToInt(stepValue - previousValue);
+            if (exchangable.Exchange(change))
             {
-                exchangable.To(change);
+                previousValue = slider.value;
             }
-            else if(change < 0)
+            else
             {
-                exchangable.From(Mathf.Abs(change));
+                slider.value = previousValue;
             }
+        }
 
-            previousValue = slider.value;
+        private float ClosestStep(float number, float interval)
+        {
+            return Mathf.Round(number / interval) * interval;
         }
 
         public class Factory : Factory<IExchangable, ExchangeItem> { }

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using Zenject;
-using ZenjectPrototype.GameState;
-using ZenjectPrototype.Managers;
+using ZenjectPrototype.RoundSystem;
 
 namespace ZenjectPrototype.UI
 {

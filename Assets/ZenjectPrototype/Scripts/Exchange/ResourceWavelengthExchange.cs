@@ -2,32 +2,49 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ZenjectPrototype.Entities.Modifiers;
-using ZenjectPrototype.Managers;
+using UnityEngine;
+using Zenject;
+using ZenjectPrototype.Entities.Capabilities;
+using ZenjectPrototype.ResourceSystem;
 
 namespace ZenjectPrototype.Exchange
 {
     public class ResourceWavelengthExchange : IExchangable
     {
-        private WavelengthModifier modifier;
+        private IWave wave;
         private IResource<int> resource;
 
-        public ResourceWavelengthExchange(WavelengthModifier modifier, IResource<int> resource)
+        [Inject]
+        public ResourceWavelengthExchange(IWave wave, IResource<int> resource)
         {
-            this.modifier = modifier;
+            this.wave = wave;
             this.resource = resource;
         }
 
-        public void To(int amount)
+        public bool Exchange(int amount)
         {
-            resource.Spend(amount);
-            modifier.Addition += amount;
+            if (amount > 0) return To(amount);
+            else if (amount < 0) return From(Mathf.Abs(amount));
+            return false;
         }
 
-        public void From(int amount)
+        private bool To(int amount)
+        {
+            if(resource.Spend(amount))
+            {
+                wave.Wavelength += amount;
+                return true;
+            }
+            return false;
+        }
+
+        private bool From(int amount)
         {
             resource.Restock(amount);
-            modifier.Addition -= amount;
+            wave.Wavelength -= amount;
+            return true;
         }
+
+        public class Factory : Factory<IWave, ResourceWavelengthExchange> { }
     }
 }

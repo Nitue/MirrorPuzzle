@@ -1,12 +1,14 @@
-using UnityEngine;
 using Zenject;
 using ZenjectPrototype.Entities;
 using ZenjectPrototype.Entities.Capabilities;
 
-public class MirrorInstaller : MonoInstaller<MirrorInstaller>
+namespace ZenjectPrototype.Installers
 {
-    public override void InstallBindings()
+    public class MirrorInstaller : MonoInstaller<MirrorInstaller>
     {
-        Container.Bind<IReflector>().To<PerfectReflector>().WhenInjectedInto<Mirror>();
+        public override void InstallBindings()
+        {
+            Container.Bind<IReflector>().To<PerfectReflector>().WhenInjectedInto<Mirror>();
+        }
     }
 }

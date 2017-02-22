@@ -1,9 +1,6 @@
-using System;
-using UnityEngine;
 using Zenject;
 using ZenjectPrototype.Entities;
 using ZenjectPrototype.Entities.Capabilities;
-using ZenjectPrototype.Entities.Spawners;
 using ZenjectPrototype.UI;
 
 namespace ZenjectPrototype.Installers
@@ -25,7 +22,6 @@ namespace ZenjectPrototype.Installers
             Container.Bind<IRotatable>().FromInstance(PhotonEmitter).WhenInjectedInto<MouseRotate>();
             Container.Bind<IRotatable>().To<Rotator>().WhenInjectedInto<PhotonEmitter>();
             Container.Bind<IWave>().To<Wave>().WhenInjectedInto<PhotonEmitter>();
-            Container.Bind<IModifiable>().To<ModifierSystem>().WhenInjectedInto<PhotonEmitter>();
         }
     }
 }

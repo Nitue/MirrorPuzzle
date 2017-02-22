@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Zenject;
 using ZenjectPrototype.Entities.Capabilities;
 using System;
-using ZenjectPrototype.Managers;
-using ZenjectPrototype.Entities;
-using System.Linq;
 
 namespace ZenjectPrototype.UI
 {
-	public class WaveColor : MonoBehaviour
+    public class WaveColor : MonoBehaviour
     {
         private Settings settings;
 

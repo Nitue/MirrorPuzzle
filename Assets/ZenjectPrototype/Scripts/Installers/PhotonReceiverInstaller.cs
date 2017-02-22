@@ -5,7 +5,7 @@ using ZenjectPrototype.Entities.Capabilities;
 using ZenjectPrototype.Entities.Filters;
 using ZenjectPrototype.UI;
 
-namespace ZenejectPrototype.Installer
+namespace ZenjectPrototype.Installer
 {
     public class PhotonReceiverInstaller : MonoInstaller<PhotonReceiverInstaller>
     {

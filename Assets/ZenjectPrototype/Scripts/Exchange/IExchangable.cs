@@ -7,7 +7,6 @@ namespace ZenjectPrototype.Exchange
 {
     public interface IExchangable
     {
-        void To(int amount);
-        void From(int amount);
+        bool Exchange(int amount);
     }
 }
