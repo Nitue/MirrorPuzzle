@@ -12,11 +12,18 @@ namespace ZenjectPrototype.Installers
         public IResource<int> Charges;
         public IResource<int> Energy;
 
-        [Inject]
-        public ResourceContainer(IResource<int> charges, IResource<int> energy)
+        public ResourceContainer(
+            [Inject(Id = Resource.Charges)] IResource<int> charges,
+            [Inject(Id = Resource.Energy)] IResource<int> energy)
         {
             Charges = charges;
             Energy = energy;
+        }
+
+        public enum Resource
+        {
+            Charges,
+            Energy
         }
     }
 }

@@ -20,18 +20,17 @@ namespace ZenjectPrototype.Managers
             {
                 if(value != stock)
                 {
-                    Debug.Log("Setting stock to: " + value);
                     stock = (value > StockCap) ? StockCap : (value < 0) ? 0 : value;
                     if (OnStockChanged != null) OnStockChanged.Invoke(this, new EventArgs());
                 }
             }
         }
 
-        public Resource()
+        [Inject]
+        public Resource(int stock)
         {
-            this.stock = Random.Range(2, 10);
-            this.StockCap = stock;
-            Debug.Log("Resource created!");
+            this.stock = stock;
+            StockCap = stock;
         }
 
         public bool Spend(int amount)
@@ -39,9 +38,7 @@ namespace ZenjectPrototype.Managers
             int newValue = Stock - amount;
             if (Stock >= amount && newValue >= 0)
             {
-                Debug.Log("Stock before spending: " + Stock);
                 Stock = newValue;
-                Debug.Log("Stock after: " + Stock);
                 return true;
             }
             return false;
