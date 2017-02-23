@@ -6,6 +6,9 @@ using ZenjectPrototype.Entities;
 
 namespace ZenjectPrototype.RoundSystem
 {
+    /// <summary>
+    /// Defines when player wins.
+    /// </summary>
     public class WinCondition : IInitializable, ICondition
     {
         private IDataHolder<Entity> entities;

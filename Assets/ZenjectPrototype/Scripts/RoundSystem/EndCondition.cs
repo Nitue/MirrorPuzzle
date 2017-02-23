@@ -5,6 +5,9 @@ using ZenjectPrototype.Entities.Spawners;
 
 namespace ZenjectPrototype.RoundSystem
 {
+    /// <summary>
+    /// Defines when a round ends.
+    /// </summary>
     public class EndCondition : IInitializable, ICondition
     {
         private ISpawner<Photon> photonSpawner;

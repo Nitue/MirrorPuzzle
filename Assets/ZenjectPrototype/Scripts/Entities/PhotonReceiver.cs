@@ -19,6 +19,17 @@ namespace ZenjectPrototype.Entities
         }
 
         public event CountUpEventHandler OnCountUp;
+        public event EventHandler OnValidCollision
+        {
+            add { collidable.OnValidCollision += value; }
+            remove { collidable.OnValidCollision -= value; }
+        }
+        public event EventHandler OnInvalidCollision
+        {
+            add { collidable.OnInvalidCollision += value; }
+            remove { collidable.OnInvalidCollision -= value; }
+        }
+
         public event WavelengthChangeEventHandler OnWavelengthChanged
         {
             add { wave.OnWavelengthChanged += value; }

@@ -9,6 +9,9 @@ using ZenjectPrototype.ResourceSystem;
 
 namespace ZenjectPrototype.Exchange
 {
+    /// <summary>
+    /// Exchanges given Resource to Wavelength.
+    /// </summary>
     public class ResourceWavelengthExchange : IExchangable
     {
         private IWave wave;
@@ -23,6 +26,7 @@ namespace ZenjectPrototype.Exchange
 
         public bool Exchange(int amount)
         {
+            // Direction of exchange is detemined by +/-
             if (amount > 0) return To(amount);
             else if (amount < 0) return From(Mathf.Abs(amount));
             return false;

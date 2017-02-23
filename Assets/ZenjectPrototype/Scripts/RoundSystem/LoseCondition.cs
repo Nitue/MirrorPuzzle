@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Zenject;
 using ZenjectPrototype.Entities;
 
 namespace ZenjectPrototype.RoundSystem
 {
+    /// <summary>
+    /// Defines when player loses.
+    /// </summary>
     public class LoseCondition : IInitializable, ICondition
     {
         private IRoundManager roundManager;

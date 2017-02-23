@@ -19,6 +19,7 @@ namespace ZenjectPrototype.Installers
 
             Container.BindAllInterfaces<LevelRoundManager>().To<LevelRoundManager>().AsSingle();
             Container.BindAllInterfaces<EmitterTrigger>().To<EmitterTrigger>().AsSingle();
+            Container.BindAllInterfaces<RoundResetter>().To<RoundResetter>().AsSingle();
 
             Container.Bind<ICondition>().To<EndCondition>().AsSingle().WhenInjectedInto<LevelRoundManager>();
             Container.Bind<IResource<int>>().FromResolveGetter<ResourceContainer>(x => x.Charges).WhenInjectedInto<LevelRoundManager>();
