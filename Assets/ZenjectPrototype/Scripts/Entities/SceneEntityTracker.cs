@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Zenject;
 
 namespace ZenjectPrototype.Entities
 {
-    public class SceneEntityTracker
+    /// <summary>
+    /// Adds all Entities placed in editor-time to manager.
+    /// </summary>
+    public class SceneEntityTracker : IInitializable
     {
         private IDataHolder<Entity> entities;
 
@@ -13,7 +17,7 @@ namespace ZenjectPrototype.Entities
             this.entities = entityHolder;
         }
 
-        public void Fetch()
+        public void Initialize()
         {
             SaveEntities(GetSceneEntities());
         }

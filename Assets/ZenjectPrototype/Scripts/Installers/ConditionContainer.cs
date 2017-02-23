@@ -2,6 +2,9 @@
 
 namespace ZenjectPrototype.Installers
 {
+    /// <summary>
+    /// Instance of this class can be used to get a specific Condition by using FromResolveGetter when binding.
+    /// </summary>
     public class ConditionContainer
     {
         public ICondition WinCondition;

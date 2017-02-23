@@ -8,17 +8,24 @@ using Zenject;
 
 namespace ZenjectPrototype.Entities
 {
-    public class PhotonReceiver : Entity, ICounter, IWave, ICollidable
+    public class PhotonReceiver : Entity, IReceiver<Photon>, IWave, ICollidable
     {
-        public int Count { get; private set; }
-
         public int Wavelength
         {
             get { return wave.Wavelength; }
             set { wave.Wavelength = value; }
         }
 
-        public event CountUpEventHandler OnCountUp;
+        public IEnumerable<Photon> ReceivedObjects
+        {
+            get { return receiver.ReceivedObjects; }
+        }
+
+        public bool HasReceivedAnything
+        {
+            get { return receiver.HasReceivedAnything; }
+        }
+
         public event EventHandler OnValidCollision
         {
             add { collidable.OnValidCollision += value; }
@@ -36,30 +43,37 @@ namespace ZenjectPrototype.Entities
             remove { wave.OnWavelengthChanged -= value; }
         }
 
+        public event ReceivedEventHandler<Photon> OnReceived
+        {
+            add { receiver.OnReceived += value; }
+            remove { receiver.OnReceived -= value; }
+        }
+
         private IWave wave;
         private ICollidable collidable;
+        private IReceiver<Photon> receiver;
 
         [Inject]
-        public void Construct(IWave wave, ICollidable collidable)
+        public void Construct(IWave wave, ICollidable collidable, IReceiver<Photon> receiver)
         {
             this.wave = wave;
             this.collidable = collidable;
-        }
-
-        public void CountUp()
-        {
-            Count++;
-            if (OnCountUp != null) OnCountUp(this, new CountUpEventArgs());
-        }
-
-        public void Reset()
-        {
-            Count = 0;
+            this.receiver = receiver;
         }
 
         public bool IsCollision(Collision collision)
         {
             return collidable.IsCollision(collision);
+        }
+
+        public void Receive(Photon entity)
+        {
+            receiver.Receive(entity);
+        }
+
+        public void Release()
+        {
+            receiver.Release();
         }
     }
 }

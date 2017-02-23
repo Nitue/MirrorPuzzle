@@ -1,19 +1,19 @@
 ﻿using Zenject;
-using ZenjectPrototype.Entities;
 using ZenjectPrototype.Entities.Spawners;
 
-namespace ZenjectPrototype
+namespace ZenjectPrototype.Entities
 {
-    public class GameManager : IInitializable
+    /// <summary>
+    /// Adds spawners to EntityManager which it will listen for new Entities.
+    /// </summary>
+    public class EntityManagerInitializer : IInitializable
     {
-        private SceneEntityTracker sceneEntityTracker;
         private EntityManager entityManager;
         private PhotonSpawner photonSpawner;
 
         [Inject]
-        public GameManager(EntityManager entityManager, SceneEntityTracker entityTracker, PhotonSpawner photonSpawner)
+        public EntityManagerInitializer(EntityManager entityManager, PhotonSpawner photonSpawner)
         {
-            this.sceneEntityTracker = entityTracker;
             this.entityManager = entityManager;
             this.photonSpawner = photonSpawner;
         }
@@ -21,7 +21,6 @@ namespace ZenjectPrototype
         public void Initialize()
         {
             entityManager.AddSpawner(photonSpawner);
-            sceneEntityTracker.Fetch();
         }
     }
 }

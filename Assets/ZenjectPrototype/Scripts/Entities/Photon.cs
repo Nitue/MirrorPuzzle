@@ -7,9 +7,10 @@ namespace ZenjectPrototype.Entities
 {
     public class Photon : Entity, IKillable, IMovable, IRotatable, IWave
     {
+        private IKillable killable; // Changeable kill logic
         private IRotatable rotatable; // Changeable rotation logic
         private IMovable movement; // Changable movement logic
-        private IWave wave;
+        private IWave wave; // Changeable wave logic
 
         public event WavelengthChangeEventHandler OnWavelengthChanged
         {
@@ -43,8 +44,9 @@ namespace ZenjectPrototype.Entities
         }
 
         [Inject]
-        public void Construct(IMovable movement, IRotatable rotatable, IWave wave)
+        public void Construct(IMovable movement, IRotatable rotatable, IWave wave, IKillable killable)
         {
+            this.killable = killable;
             this.movement = movement;
             this.rotatable = rotatable;
             this.wave = wave;
@@ -52,7 +54,7 @@ namespace ZenjectPrototype.Entities
 
         public void Kill()
         {
-            Destroy(gameObject);
+            killable.Kill();
         }
 
         public void Move()

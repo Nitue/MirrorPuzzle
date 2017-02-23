@@ -15,8 +15,11 @@ namespace ZenjectPrototype.Installers
         {
             Container.BindAllInterfacesAndSelf<ExchangeManager>().To<ExchangeManager>().AsSingle();
             Container.BindAllInterfacesAndSelf<ExchangeInitializer>().To<ExchangeInitializer>().AsSingle();
+
+            // Here we use the 'ResourceContainer' to set 'ResourceWavelengthExchange' to use the 'Energy' resource
             Container.Bind<IResource<int>>().FromResolveGetter<ResourceContainer>(x => x.Energy).WhenInjectedInto<ResourceWavelengthExchange>();
 
+            // Factory bindings with two parameters
             Container.BindFactory<IWave, ResourceWavelengthExchange, ResourceWavelengthExchange.Factory>().FromNew();
             Container.BindFactory<IExchangable, ExchangeItem, ExchangeItem.Factory>().FromPrefab(ExchangeItemPrefab);
         }

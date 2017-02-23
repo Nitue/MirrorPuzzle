@@ -8,6 +8,7 @@ namespace ZenjectPrototype.Installers
     {
         public override void InstallBindings()
         {
+            // Here we could change the reflection logic for Mirrors
             Container.Bind<IReflector>().To<PerfectReflector>().WhenInjectedInto<Mirror>();
         }
     }

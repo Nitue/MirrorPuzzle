@@ -38,7 +38,7 @@ namespace ZenjectPrototype.RoundSystem
 
         private bool AreAllReceiversReady(IEnumerable<PhotonReceiver> receivers)
         {
-            return receivers.Count() == receivers.Where(x => x.Count > 0).Count();
+            return receivers.Count() == receivers.Where(x => x.HasReceivedAnything).Count();
         }
     }
 }

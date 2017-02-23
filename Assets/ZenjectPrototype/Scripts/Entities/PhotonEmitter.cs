@@ -61,10 +61,5 @@ namespace ZenjectPrototype.Entities
         {
             rotatable.Rotate(amount);
         }
-
-        private void OnMouseUpAsButton()
-        {
-            Emit();
-        }
     }
 }

@@ -25,9 +25,9 @@ namespace ZenjectPrototype.RoundSystem
 
         private void RoundManager_OnRoundEnd(object sender, EventArgs e)
         {
-            foreach(var receiver in entities.GetAll().OfType<ICounter>())
+            foreach (var receiver in entities.GetAll().OfType<IReceiver<Photon>>())
             {
-                receiver.Reset();
+                receiver.Release();
             }
         }
     }

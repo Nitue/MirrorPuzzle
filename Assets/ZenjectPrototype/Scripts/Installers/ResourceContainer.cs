@@ -4,7 +4,7 @@ using ZenjectPrototype.ResourceSystem;
 namespace ZenjectPrototype.Installers
 {
     /// <summary>
-    /// Instance of this class can be used to get specific a Resource by using FromResolveGetter when binding.
+    /// Instance of this class can be used to get a specific Resource by using FromResolveGetter when binding.
     /// </summary>
     public class ResourceContainer
     {

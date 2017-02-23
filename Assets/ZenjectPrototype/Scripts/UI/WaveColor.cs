@@ -7,18 +7,20 @@ namespace ZenjectPrototype.UI
 {
     public class WaveColor : MonoBehaviour
     {
+        private IWave wave;
         private Settings settings;
 
         [Inject]
-        public void Construct(Settings settings)
+        public void Construct(IWave wave, Settings settings)
         {
+            this.wave = wave;
             this.settings = settings;
         }
 
         protected void Start()
         {
-            settings.Wave.OnWavelengthChanged += Wave_OnWavelengthChanged;
-            DetermineColor(settings.Wave);
+            wave.OnWavelengthChanged += Wave_OnWavelengthChanged;
+            DetermineColor(wave);
         }
 
         private void Wave_OnWavelengthChanged(object sender, WavelengthChangedEventArgs e)
@@ -105,7 +107,6 @@ namespace ZenjectPrototype.UI
         [Serializable]
         public class Settings
         {
-            public IWave Wave;
             public MeshRenderer Renderer;
         }
     }

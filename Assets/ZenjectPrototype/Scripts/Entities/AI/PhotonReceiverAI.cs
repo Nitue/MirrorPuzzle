@@ -10,13 +10,15 @@ namespace ZenjectPrototype.Entities.AI
 
         protected void OnCollisionEnter(Collision collision)
         {
-            var killable = collision.collider.GetComponent<IKillable>();
+            var photon = collision.collider.GetComponent<Photon>();
             if (photonReceiver.IsCollision(collision))
             {
-                photonReceiver.CountUp();
+                photonReceiver.Receive(photon);
             }
-
-            killable.Kill();
+            else
+            {
+                photon.Kill();
+            }
         }
     }
 }

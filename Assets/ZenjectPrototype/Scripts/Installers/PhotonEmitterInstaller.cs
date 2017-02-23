@@ -14,10 +14,9 @@ namespace ZenjectPrototype.Installers
 
         public override void InstallBindings()
         {
-            WaveColorSettings.Wave = PhotonEmitter;
-
             Container.BindInstance(RotatorSettings).WhenInjectedInto<Rotator>();
             Container.BindInstance(WaveColorSettings).WhenInjectedInto<WaveColor>();
+            Container.Bind<IWave>().FromInstance(PhotonEmitter).WhenInjectedInto<WaveColor>();
             Container.BindInstance(WaveSettings).WhenInjectedInto<Wave>();
             Container.Bind<IRotatable>().FromInstance(PhotonEmitter).WhenInjectedInto<MouseRotate>();
             Container.Bind<IRotatable>().To<Rotator>().WhenInjectedInto<PhotonEmitter>();

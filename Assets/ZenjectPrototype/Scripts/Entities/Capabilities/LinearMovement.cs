@@ -11,17 +11,23 @@ namespace ZenjectPrototype.Entities.Capabilities
     {
         public Vector3 Velocity { get; set; }
 
-        private Transform transform;
+        private Settings settings;
 
         [Inject]
-        public LinearMovement(Transform transform)
+        public LinearMovement(Settings settings)
         {
-            this.transform = transform;
+            this.settings = settings;
         }
 
         public void Move()
         {
-            transform.position += Velocity * Time.deltaTime;
+            settings.Transform.position += Velocity * Time.deltaTime;
+        }
+
+        [Serializable]
+        public class Settings
+        {
+            public Transform Transform;
         }
     }
 }

@@ -8,6 +8,10 @@ namespace ZenjectPrototype.Installers
     {
         public override void InstallBindings()
         {
+            Container.BindExecutionOrder<RoundResetter>(-10);
+            Container.BindExecutionOrder<WinCondition>(-20);
+            Container.BindExecutionOrder<LoseCondition>(-30);
+
             Container.Bind<ConditionContainer>().To<ConditionContainer>().AsSingle();
 
             Container.BindAllInterfaces<EndCondition>().To<EndCondition>().AsSingle();
