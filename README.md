@@ -1,5 +1,5 @@
 # MirrorPuzzle
-Dependency Injection example in Unity3D.
+Dependency Injection example in Unity3D. Thesis PDF: http://www.theseus.fi/handle/10024/125683
 
 ## Preview
 
